@@ -1,0 +1,47 @@
+{
+    "name": "mikelooper/container-settings",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Mikelooper\\ContainerSettings\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Miguel Morillo",
+            "email": "miguelmwilliams@gmail.com"
+        }
+    ],
+    "require": {
+        "php-di/php-di": "^6.4",
+        "adbario/php-dot-notation": "^3.2"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest",
+        "phpunit/phpunit": "^9.5",
+        "vimeo/psalm": "^4.29",
+        "squizlabs/php_codesniffer": "^3.7"
+    },
+    "scripts": {
+        "test": [
+            "@analyze",
+            "@test:unit"
+        ],
+        "lint:fix": "phpcbf",
+        "test:unit":  "phpunit --configuration phpunit.xml --do-not-cache-result --testsuite=Units --colors=always",
+        "test:integration":  "phpunit --configuration phpunit.xml --do-not-cache-result --testsuite=Integration --colors=always",
+        "test:coverage": "phpunit --configuration phpunit.xml --do-not-cache-result --colors=always --coverage-clover cache/coverage/logs/clover.xml --coverage-html cache/coverage",
+        "analyze": [
+            "@psalm",
+            "@lint"
+        ],
+        "psalm": "psalm --config=psalm.xml --no-cache",
+        "lint": "phpcs --no-cache"
+    },
+    "config": {
+        "process-timeout": 0,
+        "sort-packages": true,
+        "optimize-autoloader": true
+    }
+}
