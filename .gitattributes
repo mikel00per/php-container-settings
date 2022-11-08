@@ -1,10 +1,11 @@
 # .gitattributes
 .github           export-ignore
+.gitattributes    export-ignore
+.gitignore        export-ignore
 docker            export-ignore
 tests/cache       export-ignore
 tmp               export-ignore
-.gitattributes    export-ignore
-.gitignore        export-ignore
+Makefile          export-ignore
 *.neon            export-ignore
 phpunit.xml.dist  export-ignore
 SECURITY.md       export-ignore
