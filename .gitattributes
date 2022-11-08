@@ -1,6 +1,8 @@
 # .gitattributes
 .github           export-ignore
-docker             export-ignore
+docker            export-ignore
+tests/cache       export-ignore
+tmp               export-ignore
 .gitattributes    export-ignore
 .gitignore        export-ignore
 *.neon            export-ignore
