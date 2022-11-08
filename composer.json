@@ -37,8 +37,7 @@
             "@test:unit"
         ],
         "lint:fix": "phpcbf",
-        "test:unit":  "phpunit --configuration phpunit.xml --do-not-cache-result --testsuite=Units --colors=always",
-        "test:integration":  "phpunit --configuration phpunit.xml --do-not-cache-result --testsuite=Integration --colors=always",
+        "test:unit":  "phpunit --configuration phpunit.xml --do-not-cache-result --coverage-text --colors=never --no-coverage",
         "test:coverage": "phpunit --configuration phpunit.xml --do-not-cache-result --colors=always --coverage-clover cache/coverage/logs/clover.xml --coverage-html cache/coverage",
         "analyze": [
             "@psalm",
