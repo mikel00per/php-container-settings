@@ -1,6 +1,9 @@
 {
     "name": "mikelooper/container-settings",
     "type": "library",
+    "description": "A container with settings. Manage cache.",
+    "keywords": ["di", "dependency injection", "container", "settings", "psr-11", "psr11", "cache"],
+    "homepage": "https://github.com/mikel00per/container-settings",
     "license": "MIT",
     "autoload": {
         "psr-4": {
