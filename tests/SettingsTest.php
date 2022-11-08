@@ -1,7 +1,8 @@
 <?php
 
-namespace Mikelooper\ContainerSettings;
+namespace Tests\ContainerSettings;
 
+use ContainerSettings\Settings;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 

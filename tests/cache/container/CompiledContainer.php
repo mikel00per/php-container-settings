@@ -5,7 +5,7 @@
 class CompiledContainer extends DI\CompiledContainer{
     const METHOD_MAPPING = array (
   'foo' => 'get1',
-  'Mikelooper\\ContainerSettings\\SettingsInterface' => 'get2',
+  'ContainerSettings\\SettingsInterface' => 'get2',
   'settings' => 'get3',
   'subEntry1' => 'get4',
   'subEntry2' => 'get5',
@@ -24,22 +24,22 @@ class CompiledContainer extends DI\CompiledContainer{
     protected function get2()
     {
         return $this->resolveFactory(static function (\Psr\Container\ContainerInterface $container) {
-        return new \Mikelooper\ContainerSettings\Settings($container->get('settings'));
-    }, 'Mikelooper\\ContainerSettings\\SettingsInterface');
+        return new \ContainerSettings\Settings($container->get('settings'));
+    }, 'ContainerSettings\\SettingsInterface');
     }
 
     protected function get5()
     {
         return [
             'enabled' => true,
-            'path' => '/code/tests/cache/container',
+            'path' => '/home/mike/Projects/container-settings/tests/cache/container',
         ];
     }
 
     protected function get4()
     {
         return [
-            'definitions' => '/code/tests/config/container.php',
+            'definitions' => '/home/mike/Projects/container-settings/tests/config/container.php',
             'cache' => $this->get5(),
         ];
     }
@@ -92,9 +92,9 @@ class CompiledContainer extends DI\CompiledContainer{
     protected function get3()
     {
         return [
-            'root' => '/code/tests',
-            'config' => '/code/tests/config/',
-            'cache' => '/code/tests/cache/',
+            'root' => '/home/mike/Projects/container-settings/tests',
+            'config' => '/home/mike/Projects/container-settings/tests/config/',
+            'cache' => '/home/mike/Projects/container-settings/tests/cache/',
             'container' => $this->get4(),
             'test' => $this->get6(),
         ];

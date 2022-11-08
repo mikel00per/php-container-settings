@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mikelooper\ContainerSettings;
+namespace ContainerSettings;
 
 use DI\Container;
-use DI\ContainerBuilder;
 
 interface ContainerBuilderInterface
 {

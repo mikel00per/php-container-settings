@@ -1,7 +1,7 @@
 <?php
 
-use Mikelooper\ContainerSettings\Settings;
-use Mikelooper\ContainerSettings\SettingsInterface;
+use ContainerSettings\Settings;
+use ContainerSettings\SettingsInterface;
 use Psr\Container\ContainerInterface;
 
 return [

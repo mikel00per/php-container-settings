@@ -4,7 +4,12 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Mikelooper\\ContainerSettings\\": "src/"
+            "ContainerSettings\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\ContainerSettings\\": "tests/"
         }
     },
     "authors": [

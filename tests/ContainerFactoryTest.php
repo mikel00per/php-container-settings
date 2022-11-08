@@ -1,13 +1,15 @@
 <?php
 
-namespace Mikelooper\ContainerSettings;
+namespace Tests\ContainerSettings;
 
+use ContainerSettings\ContainerFactory;
+use ContainerSettings\Settings;
+use ContainerSettings\SettingsInterface;
 use DI\Container;
 use DI\DependencyException;
 use DI\NotFoundException;
 use Exception;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 
 class ContainerFactoryTest extends TestCase
 {
