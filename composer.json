@@ -22,6 +22,7 @@
         }
     ],
     "require": {
+        "php": ">=7.4",
         "php-di/php-di": "^6.4",
         "adbario/php-dot-notation": "^3.2"
     },
