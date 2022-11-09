@@ -5,7 +5,8 @@ $settings = [];
 # Paths
 $settings['root'] = dirname(__DIR__);
 $settings['config'] = $settings['root'] . '/config/';
-$settings['cache'] = $settings['root'] . '/cache/';
+$settings['tmp'] = $settings['root'] . '/tmp/';
+$settings['cache'] = $settings['root'] .'/tmp/cache/';
 
 # Container
 $settings['container'] = [
