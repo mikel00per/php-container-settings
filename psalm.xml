@@ -10,7 +10,7 @@
     <projectFiles>
         <directory name="src" />
         <ignoreFiles>
-            <directory name="tmp/cache" />
+            <directory name="tmp" />
             <directory name="vendor" />
         </ignoreFiles>
     </projectFiles>
