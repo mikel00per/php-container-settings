@@ -6,4 +6,5 @@ namespace ContainerSettings;
 
 interface SettingsInterface
 {
+    public function __construct($items = []);
 }
