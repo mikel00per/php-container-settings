@@ -8,7 +8,7 @@ use Adbar\Dot;
 
 final class Settings extends Dot implements SettingsInterface
 {
-    public function __construct($items = [])
+    public function __construct(array $items = [])
     {
         parent::__construct($items);
     }
