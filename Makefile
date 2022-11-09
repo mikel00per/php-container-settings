@@ -41,8 +41,11 @@ lint: ##@Style Show style errors
 lint-fix: ##@Style Fix style errors
 	docker-compose -f docker/docker-compose.yml exec php composer lint:fix
 
-test: ##@Tests Execute the tests
+test: ##@Tests Execute tests
 	docker-compose -f docker/docker-compose.yml exec php composer test
+
+test-coverage: ##@Tests Execute tests with coverage
+	docker-compose -f docker/docker-compose.yml exec php composer test:coverage
 
 exec: ##@Code Execute the code index
 	docker-compose -f docker/docker-compose.yml exec php composer exec

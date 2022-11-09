@@ -20,7 +20,7 @@ class ContainerFactoryTest extends TestCase
      */
     protected function setUp(): void
     {
-        $settingsPath = __DIR__ . '/config/settings.php';
+        $settingsPath = __DIR__ . '/../config/settings.php';
 
         $this->container = ContainerFactory::buildContainer($settingsPath);
     }
