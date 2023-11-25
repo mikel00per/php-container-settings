@@ -1,19 +1,39 @@
-# PHP Library Template
+# PHP Container Settings
 
-Template to make libraries in PHP
 
-## Make commands
+This is a package provides a factory called ```ContainerFactory```, a container (PSR-11) using [PHP-DI](https://php-di.org/). This container will have an implementation of ````SettingsInterface```` that implementation allow access to the settings using "dot annotations". Also, you can optimize perform in your project using the cache feature.
+
+## Example use
+
+To use this package you need create a file or an array,  in case of use a file you must return an array in that. Here you can see an example of use:
+
+```
+// settings.php
+return [
+    'foo' => [
+        'bar' => 1
+    ]
+];
+```
+
+```
+// index.php
+use ContainerFactory;
+
+$settingsPath = __DIR__ . '/settings.php'; // or array
+$container = ContainerFactory::create($settingsPath);
+
+$settings = $container->get(SettingsInterface::class');
+$number = $settings->get('foo.bar');
+echo $number; // 1
+```
+
+## Make commands 
 
 ````
 $ make help
 
 Usage: make [target] ...
-
-Library:
-  start               Init library rename strings
-
-Code:
-  exec                Execute the code index
 
 Container:
   run                 Build and run php container
@@ -22,19 +42,22 @@ Container:
   destroy             Remove all data related with php container
   shell               SHH in container
   logs                Show logs in container
-
-Style:
-  lint                Show style errors
-  lint-fix            Fix style errors
-
+                      
+Miscellaneous:
+  help                Show this help
+                      
+Code:
+  exec                Execute composer commands
+                      
 Tests:
   test                Execute tests
   test-coverage       Execute tests with coverage
-
-Miscellaneous:
-  help                Show this help
-
+                      
+Style:
+  lint                Show style errors
+  lint-fix            Fix style errors
+                      
 Written by Antonio Miguel Morillo Chica, version v1.0
-
 Please report any bug or error to the author.
+
 ````

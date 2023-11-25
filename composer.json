@@ -1,9 +1,9 @@
 {
-    "name": "mikelooper/php-library-template",
+    "name": "mikelooper/container-settings",
     "type": "library",
     "description": "A template to create libraries",
     "keywords": ["library"],
-    "homepage": "https://github.com/mikel00per/php-library-template",
+    "homepage": "https://github.com/mikel00per/container-settings",
     "license": "MIT",
     "authors": [
         {
@@ -13,19 +13,21 @@
     ],
     "autoload": {
         "psr-4": {
-            "PhpLibraryTemplate\\": "src/"
+            "Shared\\Infrastructure\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\PhpLibraryTemplate\\": "tests/"
+            "Tests\\Shared\\Infrastructure\\": "tests/"
         },
         "classmap": [
             "src/"
         ]
     },
     "require": {
-        "php": "^8.2"
+        "php": "^8.2",
+        "php-di/php-di": "^7.0",
+        "symfony/finder": "^6.3"
     },
     "require-dev": {
         "mikelooper/code-style": "^0.0.1",
