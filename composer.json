@@ -30,7 +30,7 @@
         "symfony/finder": "^6.3"
     },
     "require-dev": {
-        "mikelooper/code-style": "^0.0.1",
+        "mikelooper/code-style": "^0.0.2",
         "phpunit/phpunit": "^10.4",
         "vimeo/psalm": "^5.15"
     },

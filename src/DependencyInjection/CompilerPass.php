@@ -6,5 +6,5 @@ namespace Shared\Infrastructure\DependencyInjection;
 
 interface CompilerPass
 {
-	public function process(ContainerBuilder $containerBuilder): void;
+    public function process(ContainerBuilder $containerBuilder): void;
 }

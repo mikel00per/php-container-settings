@@ -10,7 +10,7 @@ $settings['configPath'] = $rootPath . '/config/';
 $settings['tmpPath'] = $rootPath . '/tmp/';
 $settings['cachePath'] = $rootPath . '/tmp/cache/';
 
-# Envirotment
+# Environment
 $settings['environment'] = (string) getenv('ENVIRONMENT');
 
 # Container

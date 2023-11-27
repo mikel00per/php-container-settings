@@ -6,6 +6,6 @@ namespace Shared\Infrastructure\Resolver;
 
 enum Types: string
 {
-	case INTERFACE = 'interface';
-	case ATTRIBUTE = 'attribute';
+    case INTERFACE = 'interface';
+    case ATTRIBUTE = 'attribute';
 }

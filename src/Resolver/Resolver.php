@@ -10,80 +10,80 @@ use Shared\Infrastructure\DependencyInjection\File;
 
 final readonly class Resolver
 {
-	public function __construct() {}
+    public function __construct() {}
 
-	/**
-	 * @param class-string $toResolve Attribute, interface...
-	 *
-	 * @throws ReflectionException
-	 */
-	public function resolve(
-		string $toResolve,
-		Types $type,
-		string $directory = '',
-		string $rootNamespace = null,
-		string $rootPath = null,
-		?string $pathCacheFile = null,
-	): array {
-		if ($pathCacheFile) {
-			$cache = new ResolverCache($toResolve, $pathCacheFile);
-			if (!$cache->exists()) {
-				$classes = $this->searchForClasses($toResolve, $type, $directory, $rootNamespace, $rootPath);
-				$compile = $cache->compile($classes);
-				return File::require($compile);
-			}
+    /**
+     * @param class-string $toResolve Attribute, interface...
+     *
+     * @throws ReflectionException
+     */
+    public function resolve(
+        string $toResolve,
+        Types $type,
+        string $directory = '',
+        string $rootNamespace = null,
+        string $rootPath = null,
+        ?string $pathCacheFile = null,
+    ): array {
+        if ($pathCacheFile) {
+            $cache = new ResolverCache($toResolve, $pathCacheFile);
+            if (!$cache->exists()) {
+                $classes = $this->searchForClasses($toResolve, $type, $directory, $rootNamespace, $rootPath);
+                $compile = $cache->compile($classes);
+                return File::require($compile);
+            }
 
-			return File::require($cache->get());
-		}
+            return File::require($cache->get());
+        }
 
-		return $this->searchForClasses($toResolve, $type, $directory, $rootNamespace, $rootPath);
-	}
+        return $this->searchForClasses($toResolve, $type, $directory, $rootNamespace, $rootPath);
+    }
 
-	/**
-	 * @param class-string $toResolve
-	 *
-	 * @throws ReflectionException
-	 */
-	private function searchForClasses(
-		string $toResolve,
-		Types $type,
-		string $directory,
-		?string $rootNamespace = '\\',
-		?string $rootPath = null,
-	): array {
-		$searchInDirectories = ($rootPath ?: '.') . '/' . $directory;
+    /**
+     * @param class-string $toResolve
+     *
+     * @throws ReflectionException
+     */
+    private function searchForClasses(
+        string $toResolve,
+        Types $type,
+        string $directory,
+        ?string $rootNamespace = '\\',
+        ?string $rootPath = null,
+    ): array {
+        $searchInDirectories = ($rootPath ?: '.') . '/' . $directory;
 
-		$classes = [];
-		foreach (File::findPhpFilesIn($searchInDirectories) as $file) {
-			$str = $rootPath . DIRECTORY_SEPARATOR . $directory . DIRECTORY_SEPARATOR;
-			/** @var string $replace */
-			$replace = str_replace($str, '', $file->getRealPath());
-			$class = trim($replace);
-			/** @var class-string $class */
-			$class = $rootNamespace . str_replace([DIRECTORY_SEPARATOR, '.php'], ['\\', ''], $class);
+        $classes = [];
+        foreach (File::findPhpFilesIn($searchInDirectories) as $file) {
+            $str = $rootPath . DIRECTORY_SEPARATOR . $directory . DIRECTORY_SEPARATOR;
+            /** @var string $replace */
+            $replace = str_replace($str, '', $file->getRealPath());
+            $class = trim($replace);
+            /** @var class-string $class */
+            $class = $rootNamespace . str_replace([DIRECTORY_SEPARATOR, '.php'], ['\\', ''], $class);
 
-			$reflectionClass = new ReflectionClass($class);
+            $reflectionClass = new ReflectionClass($class);
 
-			if ($reflectionClass->isAbstract()) {
-				continue;
-			}
+            if ($reflectionClass->isAbstract()) {
+                continue;
+            }
 
-			$interfaceNames = $reflectionClass->getInterfaceNames();
-			$notImplementInterface = $type === Types::INTERFACE && !in_array($toResolve, $interfaceNames, true);
+            $interfaceNames = $reflectionClass->getInterfaceNames();
+            $notImplementInterface = $type === Types::INTERFACE && !in_array($toResolve, $interfaceNames, true);
 
-			if ($notImplementInterface) {
-				continue;
-			}
+            if ($notImplementInterface) {
+                continue;
+            }
 
-			$hasAttribute = $type === Types::ATTRIBUTE && !$reflectionClass->getAttributes($toResolve);
+            $hasAttribute = $type === Types::ATTRIBUTE && !$reflectionClass->getAttributes($toResolve);
 
-			if ($hasAttribute) {
-				continue;
-			}
+            if ($hasAttribute) {
+                continue;
+            }
 
-			$classes[] = $class;
-		}
+            $classes[] = $class;
+        }
 
-		return $classes;
-	}
+        return $classes;
+    }
 }

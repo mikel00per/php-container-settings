@@ -6,7 +6,7 @@ namespace Shared\Infrastructure\Environment;
 
 enum Environment: string
 {
-	case DEVELOP = 'develop';
-	case TESTING = 'testing';
-	case PRODUCTION = 'production';
+    case DEVELOP = 'develop';
+    case TESTING = 'testing';
+    case PRODUCTION = 'production';
 }

@@ -6,7 +6,7 @@ namespace Shared\Infrastructure\Settings;
 
 interface SettingsInterface
 {
-	public function __construct(array $data = []);
+    public function __construct(array $data = []);
 
-	public function get(string $key): mixed;
+    public function get(string $key): mixed;
 }

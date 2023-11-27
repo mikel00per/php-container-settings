@@ -19,156 +19,156 @@ use function DI\autowire;
 
 final class ContainerBuilder
 {
-	/** @var CompilerPass[]  */
-	private array $passes = [];
-	private ?string $rootPath = null;
-	private ?string $rootNamespace = null;
-	private ?string $resolverCachePathFile = null;
+    /** @var CompilerPass[]  */
+    private array $passes = [];
+    private ?string $rootPath = null;
+    private ?string $rootNamespace = null;
+    private ?string $resolverCachePathFile = null;
 
-	private function __construct(
-		private readonly DiContainerBuilder $containerBuilder,
-		private readonly Resolver $resolver,
-	) {}
+    private function __construct(
+        private readonly DiContainerBuilder $containerBuilder,
+        private readonly Resolver $resolver,
+    ) {}
 
-	public function addDefinitions(array|DefinitionSource|string ...$definitions): self
-	{
-		$this->containerBuilder->addDefinitions(...$definitions);
+    public function addDefinitions(array|DefinitionSource|string ...$definitions): self
+    {
+        $this->containerBuilder->addDefinitions(...$definitions);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function enableCompilation(string $directory): self
-	{
-		$this->containerBuilder->enableCompilation($directory);
+    public function enableCompilation(string $directory): self
+    {
+        $this->containerBuilder->enableCompilation($directory);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function addResolverCachePathFile(string $resolverCachePathFile): self
-	{
-		$this->resolverCachePathFile = $resolverCachePathFile;
+    public function addResolverCachePathFile(string $resolverCachePathFile): self
+    {
+        $this->resolverCachePathFile = $resolverCachePathFile;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function addCompilerPasses(CompilerPass ...$compilerPasses): self
-	{
-		foreach ($compilerPasses as $compilerPass) {
-			$this->addCompilerPass($compilerPass);
-		}
+    public function addCompilerPasses(CompilerPass ...$compilerPasses): self
+    {
+        foreach ($compilerPasses as $compilerPass) {
+            $this->addCompilerPass($compilerPass);
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function addCompilerPass(CompilerPass $pass): self
-	{
-		if (array_key_exists($pass::class, $this->passes)) {
-			$message = sprintf('CompilerPass %s already added. Cannot add the same pass twice', $pass::class);
-			throw new RuntimeException($message);
-		}
+    public function addCompilerPass(CompilerPass $pass): self
+    {
+        if (array_key_exists($pass::class, $this->passes)) {
+            $message = sprintf('CompilerPass %s already added. Cannot add the same pass twice', $pass::class);
+            throw new RuntimeException($message);
+        }
 
-		$this->passes[$pass::class] = $pass;
+        $this->passes[$pass::class] = $pass;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function findDefinition(string $id): AutowireDefinitionHelper
-	{
-		return autowire($id);
-	}
+    public function findDefinition(string $id): AutowireDefinitionHelper
+    {
+        return autowire($id);
+    }
 
-	/**
-	 * @param class-string[] $ids
-	 *
-	 * @return AutowireDefinitionHelper[]
-	 */
-	public function findDefinitions(array $ids): array
-	{
-		$definitions = [];
-		foreach ($ids as $id) {
-			$definitions[$id] = $this->findDefinition($id);
-		}
+    /**
+     * @param class-string[] $ids
+     *
+     * @return AutowireDefinitionHelper[]
+     */
+    public function findDefinitions(array $ids): array
+    {
+        $definitions = [];
+        foreach ($ids as $id) {
+            $definitions[$id] = $this->findDefinition($id);
+        }
 
-		return $definitions;
-	}
+        return $definitions;
+    }
 
-	/**
-	 * @param class-string $name
-	 *
-	 * @return string[]
-	 *
-	 * @throws ReflectionException
-	 */
-	public function findClassesByResolver(string $name, Types $type, string $path): array
-	{
-		return $this->resolver->resolve(
-			$name,
-			$type,
-			$path,
-			$this->rootNamespace,
-			$this->rootPath,
-			$this->resolverCachePathFile
-		);
-	}
+    /**
+     * @param class-string $name
+     *
+     * @return string[]
+     *
+     * @throws ReflectionException
+     */
+    public function findClassesByResolver(string $name, Types $type, string $path): array
+    {
+        return $this->resolver->resolve(
+            $name,
+            $type,
+            $path,
+            $this->rootNamespace,
+            $this->rootPath,
+            $this->resolverCachePathFile
+        );
+    }
 
-	/**
-	 * @throws Exception
-	 */
-	public function build(): ContainerInterface
-	{
-		foreach ($this->passes as $pass) {
-			$pass->process($this);
-		}
+    /**
+     * @throws Exception
+     */
+    public function build(): ContainerInterface
+    {
+        foreach ($this->passes as $pass) {
+            $pass->process($this);
+        }
 
-		return $this->containerBuilder->build();
-	}
+        return $this->containerBuilder->build();
+    }
 
-	public static function create(): self
-	{
-		return new self(new DiContainerBuilder(), new Resolver());
-	}
+    public static function create(): self
+    {
+        return new self(new DiContainerBuilder(), new Resolver());
+    }
 
-	public function addSettingsDefinition(array &$definitions): self
-	{
-		$definitions[SettingsInterface::class] = static function (ContainerInterface $container): InMemorySettings {
-			return new InMemorySettings($container->get('settings'));
-		};
+    public function addSettingsDefinition(array &$definitions): self
+    {
+        $definitions[SettingsInterface::class] = static function (ContainerInterface $container): InMemorySettings {
+            return new InMemorySettings($container->get('settings'));
+        };
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function addRootPath(string $rootPath): self
-	{
-		$this->rootPath = $rootPath;
+    public function addRootPath(string $rootPath): self
+    {
+        $this->rootPath = $rootPath;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function addRootNamespace(string $rootNamespace): self
-	{
-		$this->rootNamespace = $rootNamespace;
+    public function addRootNamespace(string $rootNamespace): self
+    {
+        $this->rootNamespace = $rootNamespace;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function useAutoWiring(bool $useAutoWiring = false): self
-	{
-		$this->containerBuilder->useAutowiring($useAutoWiring);
+    public function useAutoWiring(bool $useAutoWiring = false): self
+    {
+        $this->containerBuilder->useAutowiring($useAutoWiring);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function useAttributes(bool $useAttributes = false): self
-	{
-		$this->containerBuilder->useAttributes($useAttributes);
+    public function useAttributes(bool $useAttributes = false): self
+    {
+        $this->containerBuilder->useAttributes($useAttributes);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function addSettingsArray(array $settingsArray): self
-	{
-		$this->containerBuilder->addDefinitions(['settings' => $settingsArray]);
+    public function addSettingsArray(array $settingsArray): self
+    {
+        $this->containerBuilder->addDefinitions(['settings' => $settingsArray]);
 
-		return $this;
-	}
+        return $this;
+    }
 }
