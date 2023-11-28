@@ -93,16 +93,16 @@ final class ContainerBuilder
     }
 
     /**
-     * @param class-string $name
+     * @param class-string $class
      *
      * @return string[]
      *
      * @throws ReflectionException
      */
-    public function findClassesByResolver(string $name, Types $type, string $path): array
+    public function findClassesByResolver(string $class, Types $type, string $path): array
     {
         return $this->resolver->resolve(
-            $name,
+            $class,
             $type,
             $path,
             $this->rootNamespace,
