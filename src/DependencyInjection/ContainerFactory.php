@@ -25,7 +25,7 @@ final readonly class ContainerFactory
         $containerPath = $settingsArray['di']['container']['path'];
         $containerDefinitions = File::require($containerPath, 'Container path does not exist');
 
-        $compiledPassesPath = $settingsArray['di']['compiled_passes']['path'];
+        $compiledPassesPath = $settingsArray['di']['compiler_passes']['path'];
         $compiledPassDefinitions = File::require($compiledPassesPath, 'Compiled passes file does not exist');
 
         $autoWiresPath = $settingsArray['di']['auto_wires']['path'];

@@ -34,7 +34,7 @@
         <env name="XDEBUG_MODE" value="coverage"/>
         <env name="ENVIRONMENT" value="testing"/>
         <env name="PATH_CONTAINER_DEFINITIONS" value="config/container.php"/>
-        <env name="PATH_PASSES_DEFINITION" value="config/compiled_passes.php"/>
+        <env name="PATH_COMPILER_PASSES_DEFINITION" value="config/compiler_passes.php"/>
         <env name="PATH_AUTO_WIRES" value="config/auto_wires.php"/>
         <env name="ENABLE_AUTO_WIRES" value="true"/>
         <env name="ENABLE_ATTRIBUTES" value="true"/>
