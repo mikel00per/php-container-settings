@@ -5,7 +5,7 @@ namespace Tests\Shared\Infrastructure\Units\Resolver;
 use PHPUnit\Framework\TestCase;
 use ReflectionException;
 use Shared\Infrastructure\Resolver\Resolver;
-use Shared\Infrastructure\Resolver\Types;
+use Shared\Infrastructure\Resolver\Type;
 use Tests\Shared\Infrastructure\Units\__resources__\Resolver\Attributes\ExampleAttribute;
 use Tests\Shared\Infrastructure\Units\__resources__\Resolver\Attributes\Example as ExampleWithAttribute;
 use Tests\Shared\Infrastructure\Units\__resources__\Resolver\Interfaces\Example;
@@ -55,7 +55,7 @@ final class ResolverTest extends TestCase
 
         $actual = $resolver->resolve(
             ExampleInterface::class,
-            Types::INTERFACE,
+            Type::INTERFACE,
             'tests',
             $this->rootNamespace,
             $this->rootPath
@@ -75,7 +75,7 @@ final class ResolverTest extends TestCase
 
         $resolver->resolve(
             ExampleInterface::class,
-            Types::INTERFACE,
+            Type::INTERFACE,
             'tests',
             $this->rootNamespace,
             $this->rootPath,
@@ -84,7 +84,7 @@ final class ResolverTest extends TestCase
 
         $actual = $resolver->resolve(
             ExampleInterface::class,
-            Types::INTERFACE,
+            Type::INTERFACE,
             'tests',
             $this->rootNamespace,
             $this->rootPath,
@@ -105,7 +105,7 @@ final class ResolverTest extends TestCase
 
         $actual = $resolver->resolve(
             ExampleAttribute::class,
-            Types::ATTRIBUTE,
+            Type::ATTRIBUTE,
             'tests',
             $this->rootNamespace,
             $this->rootPath

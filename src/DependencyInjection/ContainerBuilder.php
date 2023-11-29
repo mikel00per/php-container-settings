@@ -12,7 +12,7 @@ use Psr\Container\ContainerInterface;
 use ReflectionException;
 use RuntimeException;
 use Shared\Infrastructure\Resolver\Resolver;
-use Shared\Infrastructure\Resolver\Types;
+use Shared\Infrastructure\Resolver\Type;
 use Shared\Infrastructure\Settings\InMemorySettings;
 use Shared\Infrastructure\Settings\SettingsInterface;
 use function DI\autowire;
@@ -99,7 +99,7 @@ final class ContainerBuilder
      *
      * @throws ReflectionException
      */
-    public function findClassesByResolver(string $class, Types $type, string $path): array
+    public function findClassesByResolver(string $class, Type $type, string $path): array
     {
         return $this->resolver->resolve(
             $class,

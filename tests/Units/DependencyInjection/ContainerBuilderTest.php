@@ -11,7 +11,7 @@ use ReflectionException;
 use RuntimeException;
 use Shared\Infrastructure\DependencyInjection\CompilerPass;
 use Shared\Infrastructure\DependencyInjection\ContainerBuilder;
-use Shared\Infrastructure\Resolver\Types;
+use Shared\Infrastructure\Resolver\Type;
 use Tests\Shared\Infrastructure\Units\__resources__\Resolver\Interfaces\Example;
 use Tests\Shared\Infrastructure\Units\__resources__\Resolver\Interfaces\ExampleInterface;
 use Tests\Shared\Infrastructure\Utils\TestCase;
@@ -51,7 +51,7 @@ final class ContainerBuilderTest extends TestCase
     {
         $classes = $this->containerBuilder->findClassesByResolver(
             ExampleInterface::class,
-            Types::INTERFACE,
+            Type::INTERFACE,
             'tests',
         );
 
@@ -119,7 +119,7 @@ final class ContainerBuilderTest extends TestCase
             {
                 $classes = $containerBuilder->findClassesByResolver(
                     ExampleInterface::class,
-                    Types::INTERFACE,
+                    Type::INTERFACE,
                     'tests',
                 );
 

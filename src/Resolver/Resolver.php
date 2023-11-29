@@ -18,11 +18,11 @@ final readonly class Resolver
      * @throws ReflectionException
      */
     public function resolve(
-        string $toResolve,
-        Types $type,
-        string $directory = '',
-        string $rootNamespace = null,
-        string $rootPath = null,
+        string  $toResolve,
+        Type    $type,
+        string  $directory = '',
+        string  $rootNamespace = null,
+        string  $rootPath = null,
         ?string $pathCacheFile = null,
     ): array {
         if ($pathCacheFile) {
@@ -45,9 +45,9 @@ final readonly class Resolver
      * @throws ReflectionException
      */
     private function searchForClasses(
-        string $toResolve,
-        Types $type,
-        string $directory,
+        string  $toResolve,
+        Type    $type,
+        string  $directory,
         ?string $rootNamespace = '\\',
         ?string $rootPath = null,
     ): array {
@@ -69,13 +69,13 @@ final readonly class Resolver
             }
 
             $interfaceNames = $reflectionClass->getInterfaceNames();
-            $notImplementInterface = $type === Types::INTERFACE && !in_array($toResolve, $interfaceNames, true);
+            $notImplementInterface = $type === Type::INTERFACE && !in_array($toResolve, $interfaceNames, true);
 
             if ($notImplementInterface) {
                 continue;
             }
 
-            $hasAttribute = $type === Types::ATTRIBUTE && !$reflectionClass->getAttributes($toResolve);
+            $hasAttribute = $type === Type::ATTRIBUTE && !$reflectionClass->getAttributes($toResolve);
 
             if ($hasAttribute) {
                 continue;
