@@ -1,4 +1,4 @@
-name: PHP Composer
+name: CI
 
 on:
   push:
@@ -36,4 +36,5 @@ jobs:
       run: composer validate
 
     - name: Run test suite
-      run: composer test
+      run:
+        composer test

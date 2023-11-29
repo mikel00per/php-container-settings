@@ -19,21 +19,22 @@ use Tests\Shared\Infrastructure\Utils\TestCase;
 final class ContainerBuilderTest extends TestCase
 {
     private ContainerBuilder $containerBuilder;
-    private string $rootPath = '/code';
     private string $rootNamespace = 'Tests\\Shared\\Infrastructure\\';
-    private string $containerCachePath = '/code/tmp/cache/container';
     private string $containerCacheFileName = 'CompiledContainer.php';
+    private string $containerCachePath;
     private string $containerCacheFilePath;
 
     public function setUp(): void
     {
+        $rootPath = dirname(__DIR__, 3);
+        $this->containerCachePath = "$rootPath/tmp/cache/container";
         $this->containerCacheFilePath = "$this->containerCachePath/$this->containerCacheFileName";
 
         $this->removeContainerCache();
 
         $this->containerBuilder = ContainerBuilder::create()
             ->addRootNamespace($this->rootNamespace)
-            ->addRootPath($this->rootPath);
+            ->addRootPath($rootPath);
     }
 
     public function tearDown(): void

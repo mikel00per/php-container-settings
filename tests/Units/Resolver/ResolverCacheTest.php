@@ -19,8 +19,9 @@ final class ResolverCacheTest extends TestCase
 
         $file = 'example_cache.php';
 
-        $this->dir = '/code/tmp/cache/container/resolved_classes';
-        $this->pathCacheFile = $this->dir . '/' . $file;
+        $rootPath = dirname(__DIR__, 3);
+        $this->dir = "$rootPath/tmp/cache/container/resolved_classes";
+        $this->pathCacheFile = "$this->dir/$file";
 
         @unlink($this->pathCacheFile);
         @rmdir($this->dir);

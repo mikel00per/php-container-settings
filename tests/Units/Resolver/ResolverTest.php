@@ -14,16 +14,18 @@ use Tests\Shared\Infrastructure\Units\__resources__\Resolver\Interfaces\ExampleI
 
 final class ResolverTest extends TestCase
 {
-    private string $rootDirectory = '/code';
-    private string $rootNamespace = 'Tests\\Shared\\Infrastructure\\';
-    private string $resolverCacheDir = '/code/tmp/cache/container/resolved_classes';
-    private string $resolverFileName = 'example_cache.php';
+    private string $rootPath;
+    private string $resolverCacheDir;
     private string $resolverCachePathFile;
+    private string $rootNamespace = 'Tests\\Shared\\Infrastructure\\';
+    private string $resolverFileName = 'example_cache.php';
 
     public function setUp(): void
     {
         parent::setUp();
 
+        $this->rootPath = dirname(__DIR__, 3);
+        $this->resolverCacheDir = "$this->rootPath/tmp/cache/container/resolved_classes";
         $this->resolverCachePathFile = "$this->resolverCacheDir/$this->resolverFileName";
 
         $this->removeCacheFolder();
@@ -56,10 +58,10 @@ final class ResolverTest extends TestCase
             Types::INTERFACE,
             'tests',
             $this->rootNamespace,
-            $this->rootDirectory
+            $this->rootPath
         );
 
-        $this->assertEquals([ExampleImplement::class, Example::class], $actual);
+        $this->assertEqualsCanonicalizing([Example::class, ExampleImplement::class], $actual);
     }
 
     /**
@@ -76,7 +78,7 @@ final class ResolverTest extends TestCase
             Types::INTERFACE,
             'tests',
             $this->rootNamespace,
-            $this->rootDirectory,
+            $this->rootPath,
             $this->resolverCachePathFile
         );
 
@@ -85,11 +87,11 @@ final class ResolverTest extends TestCase
             Types::INTERFACE,
             'tests',
             $this->rootNamespace,
-            $this->rootDirectory,
+            $this->rootPath,
             $this->resolverCachePathFile
         );
 
-        $this->assertEquals([ExampleImplement::class, Example::class], $actual);
+        $this->assertEqualsCanonicalizing([Example::class, ExampleImplement::class], $actual);
     }
 
     /**
@@ -106,9 +108,9 @@ final class ResolverTest extends TestCase
             Types::ATTRIBUTE,
             'tests',
             $this->rootNamespace,
-            $this->rootDirectory
+            $this->rootPath
         );
 
-        $this->assertEquals([ExampleWithAttribute::class], $actual);
+        $this->assertEqualsCanonicalizing([ExampleWithAttribute::class], $actual);
     }
 }

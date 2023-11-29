@@ -18,15 +18,17 @@ final class ContainerFactoryTest extends TestCase
 {
     private string $settingsPath;
     private ContainerInterface $container;
-    private string $containerCachePath = '/code/tmp/cache/container';
-    private string $containerCacheFileName = 'CompiledContainer.php';
+    private string $containerCachePath;
     private string $containerCacheFilePath;
+    private string $containerCacheFileName = 'CompiledContainer.php';
 
     /**
      * @throws Exception
      */
     public function setUp(): void
     {
+        $rootPath = dirname(__DIR__, 3);
+        $this->containerCachePath = "$rootPath/tmp/cache/container";
         $this->containerCacheFilePath = "$this->containerCachePath/$this->containerCacheFileName";
         $this->removeContainerCache();
 
