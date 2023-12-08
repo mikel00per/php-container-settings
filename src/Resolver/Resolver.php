@@ -18,11 +18,11 @@ final readonly class Resolver
      * @throws ReflectionException
      */
     public function resolve(
-        string  $toResolve,
-        Type    $type,
-        string  $directory = '',
-        string  $rootNamespace = null,
-        string  $rootPath = null,
+        string $toResolve,
+        Type $type,
+        string $directory = '',
+        string $rootNamespace = null,
+        string $rootPath = null,
         ?string $pathCacheFile = null,
     ): array {
         if ($pathCacheFile) {
@@ -45,9 +45,9 @@ final readonly class Resolver
      * @throws ReflectionException
      */
     private function searchForClasses(
-        string  $toResolve,
-        Type    $type,
-        string  $directory,
+        string $toResolve,
+        Type $type,
+        string $directory,
         ?string $rootNamespace = '\\',
         ?string $rootPath = null,
     ): array {
