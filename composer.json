@@ -26,13 +26,13 @@
     },
     "require": {
         "php": "^8.2",
-        "php-di/php-di": "^7.0",
-        "symfony/finder": "^6.3"
+        "php-di/php-di": "^7",
+        "symfony/finder": "^7"
     },
     "require-dev": {
-        "mikelooper/code-style": "^0.0.2",
-        "phpunit/phpunit": "^10.4",
-        "vimeo/psalm": "^5.15"
+        "mikelooper/code-style": "^0",
+        "phpunit/phpunit": "^10",
+        "vimeo/psalm": "^5"
     },
     "scripts": {
         "test": [
