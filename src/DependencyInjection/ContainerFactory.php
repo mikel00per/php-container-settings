@@ -32,13 +32,18 @@ final readonly class ContainerFactory
         $autoWiresDefinitions = File::require($autoWiresPath, 'Auto wires file does not exist');
 
         // 2. Crete container
+        $isAutoWiringEnabled = $settingsArray['di']['auto_wires']['enabled'];
         $containerBuilder = ContainerBuilder::create()
             ->addSettingsArray($settingsArray)
             ->addRootPath($settingsArray['rootPath'])
             ->addRootNamespace($settingsArray['rootNamespace'])
-            ->useAutoWiring($settingsArray['di']['auto_wires']['enabled'])
+            ->useAutoWiring($isAutoWiringEnabled)
             ->useAttributes($settingsArray['di']['attributes']['enabled'])
         ;
+
+        if ($isAutoWiringEnabled) {
+            $containerBuilder->addDefinitions($autoWiresDefinitions);
+        }
 
         // 3. Cache
         if (Environment::from($settingsArray['environment']) === Environment::PRODUCTION) {
@@ -48,7 +53,7 @@ final readonly class ContainerFactory
             $containerBuilder
                 ->enableCompilation($containerCachePath)
                 ->addResolverCachePathFile($resolverCachePathFile)
-                ->addDefinitions($autoWiresDefinitions);
+            ;
         }
 
         // 4. Add definitions
