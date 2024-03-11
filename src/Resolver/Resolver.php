@@ -56,11 +56,17 @@ final readonly class Resolver
         $classes = [];
         foreach (File::findPhpFilesIn($searchInDirectories) as $file) {
             $str = $rootPath . DIRECTORY_SEPARATOR . $directory . DIRECTORY_SEPARATOR;
+
             /** @var string $replace */
             $replace = str_replace($str, '', $file->getRealPath());
             $class = trim($replace);
+
             /** @var class-string $class */
             $class = $rootNamespace . str_replace([DIRECTORY_SEPARATOR, '.php'], ['\\', ''], $class);
+
+            if (!$this->isValidPsr4($class)) {
+                continue;
+            }
 
             $reflectionClass = new ReflectionClass($class);
 
@@ -85,5 +91,10 @@ final readonly class Resolver
         }
 
         return $classes;
+    }
+
+    private function isValidPsr4(string $namespace): bool
+    {
+        return !empty($namespace) && preg_match('/^(?:[A-Z][a-z0-9]*\\\\?)+$/', $namespace);
     }
 }
